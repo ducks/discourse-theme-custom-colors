@@ -66,12 +66,12 @@ function generateColorVariables(colors) {
   const headerBgRgb = hexToRgb(headerBg);
 
   const vars = {
-    // Base colors
+    // Base colors - header uses secondary for unified Horizon-style look
     "--primary": primary,
     "--secondary": secondary,
     "--tertiary": tertiary,
-    "--header_background": headerBg,
-    "--header_primary": headerPrimary,
+    "--header_background": secondary,
+    "--header_primary": primary,
     "--highlight": highlight,
     "--quaternary": tertiary,
 
@@ -80,7 +80,7 @@ function generateColorVariables(colors) {
     "--secondary-rgb": secondaryRgb ? `${secondaryRgb.r}, ${secondaryRgb.g}, ${secondaryRgb.b}` : "255, 255, 255",
     "--tertiary-rgb": tertiaryRgb ? `${tertiaryRgb.r}, ${tertiaryRgb.g}, ${tertiaryRgb.b}` : "0, 0, 0",
     "--highlight-rgb": highlightRgb ? `${highlightRgb.r}, ${highlightRgb.g}, ${highlightRgb.b}` : "0, 0, 0",
-    "--header_background-rgb": headerBgRgb ? `${headerBgRgb.r}, ${headerBgRgb.g}, ${headerBgRgb.b}` : "0, 0, 0",
+    "--header_background-rgb": secondaryRgb ? `${secondaryRgb.r}, ${secondaryRgb.g}, ${secondaryRgb.b}` : "255, 255, 255",
 
     // Primary variants (text on background)
     "--primary-very-low": mixColors(primary, secondary, 0.1),
@@ -109,13 +109,13 @@ function generateColorVariables(colors) {
     "--highlight-medium": mixColors(highlight, secondary, 0.4),
     "--highlight-high": mixColors(highlight, primary, 0.6),
 
-    // Header variants
-    "--header_primary-very-high": mixColors(headerPrimary, headerBg, 0.85),
-    "--header_primary-high": mixColors(headerPrimary, headerBg, 0.7),
-    "--header_primary-medium": mixColors(headerPrimary, headerBg, 0.5),
-    "--header_primary-low-mid": mixColors(headerPrimary, headerBg, 0.4),
-    "--header_primary-low": mixColors(headerPrimary, headerBg, 0.3),
-    "--header_primary-very-low": mixColors(headerPrimary, headerBg, 0.15),
+    // Header variants (uses primary/secondary for unified look)
+    "--header_primary-very-high": mixColors(primary, secondary, 0.85),
+    "--header_primary-high": mixColors(primary, secondary, 0.7),
+    "--header_primary-medium": mixColors(primary, secondary, 0.5),
+    "--header_primary-low-mid": mixColors(primary, secondary, 0.4),
+    "--header_primary-low": mixColors(primary, secondary, 0.3),
+    "--header_primary-very-low": mixColors(primary, secondary, 0.15),
 
     // Common UI colors
     "--danger": "#e45735",
@@ -199,6 +199,10 @@ function generateColorVariables(colors) {
 
     // Misc
     "--d-unread-notification-background": mixColors(tertiary, secondary, 0.2),
+
+    // Search box - give it a visible border/background
+    "--search-bg": isDark ? lighten(secondary, 0.08) : darken(secondary, 0.03),
+    "--search-border": isDark ? lighten(secondary, 0.2) : darken(secondary, 0.12),
   };
 
   return vars;
@@ -214,6 +218,7 @@ export default {
     }
 
     const colorString = currentUser.custom_fields?.custom_color_string;
+    console.log("[custom-colors] colorString from user:", colorString);
     if (!colorString) {
       return;
     }
