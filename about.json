@@ -1,7 +1,7 @@
 {
-  "name": "Custom Colors",
-  "about_url": "https://github.com/ducks/discourse-theme-custom-colors",
-  "license_url": "https://github.com/ducks/discourse-theme-custom-colors/blob/main/LICENSE",
+  "name": "Horizon Custom Colors",
+  "about_url": "https://github.com/ducks/discourse-horizon-custom-colors",
+  "license_url": "https://github.com/ducks/discourse-horizon-custom-colors/blob/main/LICENSE",
   "component": true,
   "minimum_discourse_version": "3.2.0",
   "authors": "ducks"

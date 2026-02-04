@@ -136,12 +136,12 @@ export default class CustomColors extends Component {
     const headerBgRgb = this.hexToRgb(headerBg);
 
     return {
-      // Base colors
+      // Base colors - header uses secondary for unified Horizon-style look
       "--primary": primary,
       "--secondary": secondary,
       "--tertiary": tertiary,
-      "--header_background": headerBg,
-      "--header_primary": headerPrimary,
+      "--header_background": secondary,
+      "--header_primary": primary,
       "--highlight": highlight,
       "--quaternary": tertiary,
 
@@ -150,7 +150,7 @@ export default class CustomColors extends Component {
       "--secondary-rgb": secondaryRgb ? `${secondaryRgb.r}, ${secondaryRgb.g}, ${secondaryRgb.b}` : "255, 255, 255",
       "--tertiary-rgb": tertiaryRgb ? `${tertiaryRgb.r}, ${tertiaryRgb.g}, ${tertiaryRgb.b}` : "0, 0, 0",
       "--highlight-rgb": highlightRgb ? `${highlightRgb.r}, ${highlightRgb.g}, ${highlightRgb.b}` : "0, 0, 0",
-      "--header_background-rgb": headerBgRgb ? `${headerBgRgb.r}, ${headerBgRgb.g}, ${headerBgRgb.b}` : "0, 0, 0",
+      "--header_background-rgb": secondaryRgb ? `${secondaryRgb.r}, ${secondaryRgb.g}, ${secondaryRgb.b}` : "255, 255, 255",
 
       // Primary variants
       "--primary-very-low": this.mixColors(primary, secondary, 0.1),
@@ -179,13 +179,13 @@ export default class CustomColors extends Component {
       "--highlight-medium": this.mixColors(highlight, secondary, 0.4),
       "--highlight-high": this.mixColors(highlight, primary, 0.6),
 
-      // Header variants
-      "--header_primary-very-high": this.mixColors(headerPrimary, headerBg, 0.85),
-      "--header_primary-high": this.mixColors(headerPrimary, headerBg, 0.7),
-      "--header_primary-medium": this.mixColors(headerPrimary, headerBg, 0.5),
-      "--header_primary-low-mid": this.mixColors(headerPrimary, headerBg, 0.4),
-      "--header_primary-low": this.mixColors(headerPrimary, headerBg, 0.3),
-      "--header_primary-very-low": this.mixColors(headerPrimary, headerBg, 0.15),
+      // Header variants (uses primary/secondary for unified look)
+      "--header_primary-very-high": this.mixColors(primary, secondary, 0.85),
+      "--header_primary-high": this.mixColors(primary, secondary, 0.7),
+      "--header_primary-medium": this.mixColors(primary, secondary, 0.5),
+      "--header_primary-low-mid": this.mixColors(primary, secondary, 0.4),
+      "--header_primary-low": this.mixColors(primary, secondary, 0.3),
+      "--header_primary-very-low": this.mixColors(primary, secondary, 0.15),
 
       // Common UI colors
       "--danger": "#e45735",
@@ -269,6 +269,10 @@ export default class CustomColors extends Component {
 
       // Misc
       "--d-unread-notification-background": this.mixColors(tertiary, secondary, 0.2),
+
+      // Search box - give it a visible border/background
+      "--search-bg": isDark ? this.lighten(secondary, 0.08) : this.darken(secondary, 0.03),
+      "--search-border": isDark ? this.lighten(secondary, 0.2) : this.darken(secondary, 0.12),
     };
   }
 
